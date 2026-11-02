@@ -1,0 +1,27 @@
+/* Seven requested corrections: intentionally last stylesheet */
+#levels .level-grid{display:flex!important;justify-content:center!important;align-items:stretch!important;flex-wrap:wrap!important;max-width:1250px!important;margin:20px auto 25px!important;gap:14px!important}
+#levels .level{flex:0 1 225px!important;width:225px!important;min-width:190px!important;max-width:225px!important}
+#levels .level-grid:has(.level:only-child){justify-content:center!important;width:100%!important}
+#levels .level-grid:has(.level:only-child) .level{margin-inline:auto!important}
+#game .note.arm-note{width:clamp(75px,8vw,115px)!important;height:clamp(90px,10vw,120px)!important;min-height:0!important;display:flex!important;align-items:center!important;justify-content:center!important;background:#091a3b!important;padding:4px!important}
+#game .note.arm-note .direction-icon{width:100%!important;height:100%!important;object-fit:contain!important}
+#game .note.arm-note small{display:none!important}
+#game .lane .hit{position:absolute!important;left:3%!important;right:3%!important;top:67%!important;bottom:auto!important;transform:translateY(-50%)!important;width:94%!important;height:105px!important;border:5px solid #ffec74!important;border-radius:18px!important;background:#ffed6a20!important;box-shadow:0 0 0 3px #1a3768,0 0 23px #ffe16c!important;filter:none!important;z-index:3!important;pointer-events:none!important}
+#game .lane .hit:before{content:'HIT ZONE'!important;position:absolute!important;top:-30px!important;left:50%!important;transform:translateX(-50%)!important;background:#ffed74!important;color:#10214b!important;font-weight:900!important;font-size:13px!important;padding:3px 10px!important;border-radius:8px!important;white-space:nowrap!important}
+#game .lane .hit:after{content:''!important;position:absolute!important;left:5%!important;right:5%!important;top:50%!important;border-top:4px dashed #fff!important;opacity:.95!important}
+#game .fb-next{width:20%!important;max-width:220px!important;min-height:190px!important;display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;gap:10px!important}
+#game .fb-next-title{font-size:clamp(20px,2vw,30px)!important;letter-spacing:3px!important}
+#game .fb-next-symbol{width:100%!important;display:flex!important;justify-content:center!important}
+#game .fb-next-symbol img{width:clamp(110px,13vw,180px)!important;max-width:100%!important;height:clamp(110px,13vw,180px)!important;max-height:none!important;object-fit:contain!important}
+#game .fb-next-name,#game .fb-next-side{display:none!important}
+#game .game-puppy img,#results .puppy{content:normal!important}
+#game .game-puppy img{height:155px!important;width:100%!important;object-fit:contain!important}
+#results .puppy{content:normal!important}
+#game[data-phase="warmup"] .game-bg{background-image:linear-gradient(#06142a80,#06142a80),url('assets/scene-warmup.webp')!important}
+#game[data-phase="cooldown"] .game-bg{background-image:linear-gradient(#06142a80,#06142a80),url('assets/scene-cooldown.webp')!important}
+#game[data-phase="workout"][data-level="0"] .game-bg{background-image:linear-gradient(#06142a80,#06142a80),url('assets/scene-light.webp')!important}
+#game[data-phase="workout"][data-level="1"] .game-bg{background-image:linear-gradient(#06142a80,#06142a80),url('assets/scene-moderate.webp')!important}
+#game[data-phase="workout"][data-level="2"] .game-bg{background-image:linear-gradient(#06142a80,#06142a80),url('assets/scene-vigorous.webp')!important}
+#game[data-phase="workout"][data-level="3"] .game-bg{background-image:linear-gradient(#06142a80,#06142a80),url('assets/scene-maximum.webp')!important}
+#game[data-phase="workout"][data-level="4"] .game-bg{background-image:linear-gradient(#06142a80,#06142a80),url('assets/scene-interval.webp')!important}
+@media(max-width:700px){#levels .level{flex-basis:190px!important;width:190px!important}#game .lane .hit{height:85px!important;border-width:3px!important}#game .fb-next-symbol img{width:95px!important;height:95px!important}#game .fb-next{min-height:125px!important}}

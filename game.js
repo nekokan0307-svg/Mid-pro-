@@ -122,7 +122,7 @@ if(levelGrid){
   phaseBar.querySelectorAll('button').forEach(b=>{b.classList.toggle('selected',b.dataset.phase===phase);b.setAttribute('aria-pressed',String(b.dataset.phase===phase))});
   if(phase==='workout'){
    detail.textContent='Choose workout intensity. BPM is music tempo, not a clinical intensity measure.';
-   levelGrid.innerHTML=intensity.map((m,i)=>'<button class="level" type="button" data-mode="'+m.id+'"><img src="assets/'+['neon-original/bg-light.png','neon-original/bg-moderate.png','neon-original/bg-vigorous.png','neon-original/bg-maximum.png','neon-original/bg-interval.png'][m.scene]+'" alt=""><b>'+m.name+'</b><span>'+(m.id==='interval'?'150 BPM · alternating every 30s':m.bpm)+' BPM · '+m.duration+' sec</span></button>').join('');
+   levelGrid.innerHTML=intensity.map((m,i)=>'<button class="level" type="button" data-mode="'+m.id+'"><img src="assets/'+['scene-light.webp', 'scene-moderate.webp', 'scene-vigorous.webp', 'scene-maximum.webp', 'scene-interval.webp'][m.scene]+'" alt=""><b>'+m.name+'</b><span>'+(m.id==='interval'?'150 BPM · alternating every 30s':m.bpm)+' BPM · '+m.duration+' sec</span></button>').join('');
   }else{
    const warm=phase==='warmup';
    detail.textContent=warm?'Warm-up: 4 designed movement blocks.':'Cool-down: same movements as warm-up, at an easier cadence.';
@@ -214,14 +214,12 @@ function spawn(item,target){
 }
 const nextPanel=document.createElement('div');
 nextPanel.className='fb-next';
-nextPanel.innerHTML='<div class="fb-next-title">NEXT</div><div class="fb-next-symbol">↑</div><div class="fb-next-name">UP</div><div class="fb-next-side">LEFT ARM</div>';
+nextPanel.innerHTML='<div class="fb-next-title">NEXT</div><div class="fb-next-symbol">↑</div>';
 document.querySelector('#game .play-area')?.append(nextPanel);
 function updateNext(){
  const item=choreo[choreoIndex];if(!item)return;
  const symbols={up:'↑',down:'↓',side:'↔','twist-punch':'🥊'};
  nextPanel.querySelector('.fb-next-symbol').innerHTML='<img src="assets/approved/direction-'+item.pose+'.png" alt="'+item.pose+'">';
- nextPanel.querySelector('.fb-next-name').textContent=(item.pose==='twist-punch'?'TWIST & PUNCH':item.pose.toUpperCase());
- nextPanel.querySelector('.fb-next-side').textContent=item.side==='both'?'BOTH ARMS':item.side.toUpperCase()+' ARM';
 }
 function schedule(){
  while(nextTarget-TRAVEL<=elapsed && nextTarget<duration()-.05){
@@ -235,7 +233,7 @@ function schedule(){
  }
 }
 function fail(n){
- if(n.hit)return;n.hit=true;n.el.remove();combo=0;miss++;$('feedback').textContent='MISS';update();
+ if(n.hit)return;n.hit=true;n.el.remove();combo=0;miss++;$('feedback').textContent='MISS';window.fitbeatSetMood?.('miss');update();
 }
 function tick(time){
  if(!playing)return;
@@ -266,8 +264,8 @@ function move(lane,pose){
  const delta=Math.abs(elapsed-n.target);
  if(delta>.48){$('feedback').textContent=elapsed<n.target?'Too early!':'Too late!';return}
  n.hit=true;n.el.remove();combo++;maxCombo=Math.max(maxCombo,combo);
- if(delta<.20){perfect++;score+=100+Math.min(combo,20)*5;$('feedback').textContent='PERFECT! ✨';ping(750)}
- else{good++;score+=50+Math.min(combo,20)*2;$('feedback').textContent='GOOD! 🌸';ping(560)}
+ if(delta<.20){perfect++;score+=100+Math.min(combo,20)*5;$('feedback').textContent='PERFECT! ✨';window.fitbeatSetMood?.(combo>=5?'combo':'perfect');ping(750)}
+ else{good++;score+=50+Math.min(combo,20)*2;$('feedback').textContent='GOOD! 🌸';window.fitbeatSetMood?.(combo>=5?'combo':'great');ping(560)}
  update();
 }
 function finish(){
@@ -280,7 +278,7 @@ function finish(){
  const kcal=met*3.5*weight/200*(elapsed/60);
  $('calories').textContent=kcal.toFixed(1)+' kcal (estimate)';
  $('workout-time').textContent=Math.floor(elapsed/60)+':'+String(Math.floor(elapsed%60)).padStart(2,'0');
- show('results');
+ show('results');window.fitbeatSetMood?.(accuracy>=65?'win':'sad',true);
 }
 window.fitbeatHit=(side,pose)=>move(side==='left'?0:1,gestures.indexOf(pose));
 document.addEventListener('keydown',e=>{
