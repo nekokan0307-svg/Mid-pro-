@@ -122,11 +122,11 @@ if(levelGrid){
   phaseBar.querySelectorAll('button').forEach(b=>{b.classList.toggle('selected',b.dataset.phase===phase);b.setAttribute('aria-pressed',String(b.dataset.phase===phase))});
   if(phase==='workout'){
    detail.textContent='Choose workout intensity. BPM is music tempo, not a clinical intensity measure.';
-   levelGrid.innerHTML=intensity.map((m,i)=>'<button class="level" type="button" data-mode="'+m.id+'"><img src="assets/'+['scene-light.webp', 'scene-moderate.webp', 'scene-vigorous.webp', 'scene-maximum.webp', 'scene-interval.webp'][m.scene]+'" alt=""><b>'+m.name+'</b><span>'+(m.id==='interval'?'150 BPM · alternating every 30s':m.bpm)+' BPM · '+m.duration+' sec</span></button>').join('');
+   levelGrid.innerHTML=intensity.map((m,i)=>'<button class="level" type="button" data-mode="'+m.id+'"><img src="assets/'+['redesign/light.svg', 'redesign/moderate.svg', 'redesign/vigorous.svg', 'redesign/maximum.svg', 'redesign/interval.svg'][m.scene]+'" alt=""><b>'+m.name+'</b><span>'+(m.id==='interval'?'150 BPM · alternating every 30s':m.bpm)+' BPM · '+m.duration+' sec</span></button>').join('');
   }else{
    const warm=phase==='warmup';
    detail.textContent=warm?'Warm-up: 4 designed movement blocks.':'Cool-down: same movements as warm-up, at an easier cadence.';
-   levelGrid.innerHTML='<button class="level fb-single" type="button" data-mode="phase"><img src="assets/'+(warm?'neon-original/bg-warmup.png':'neon-original/bg-cooldown.png')+'" alt=""><b>'+(warm?'🌤 Start Warm-up':'🌙 Start Cool-down')+'</b><span>'+(warm?'100':'90')+' BPM · 60 sec</span></button>';
+   levelGrid.innerHTML='<button class="level fb-single" type="button" data-mode="phase"><img src="assets/'+(warm?'redesign/warmup.svg':'redesign/cooldown.svg')+'" alt=""><b>'+(warm?'🌤 Start Warm-up':'🌙 Start Cool-down')+'</b><span>'+(warm?'100':'90')+' BPM · 60 sec</span></button>';
   }
  }
  phaseBar.addEventListener('click',e=>{const b=e.target.closest('[data-phase]');if(!b)return;phase=b.dataset.phase;render()});
@@ -135,7 +135,7 @@ if(levelGrid){
 }
 // Each item is one motion target. A repeated arm gesture is deliberately spaced
 // by two beats so a held pose cannot automatically score repeated notes.
-const event=(side,pose,beats=2)=>({side,pose,beats:Math.max(2,beats)});
+const event=(side,pose,beats=2)=>({side,pose,beats:Math.max(4,beats)});
 function makeChoreo(){
  const a=[];
  const add=(side,pose,count,beats=2)=>{for(let i=0;i<count;i++)a.push(event(side,pose,beats))};
@@ -163,7 +163,7 @@ function makeChoreo(){
 }
 function reset(){
  score=combo=maxCombo=perfect=good=miss=0;notes=[];elapsed=0;spawnAt=0;last=0;paused=false;gestureStep=0;
- choreo=makeChoreo();choreoIndex=0;updateNext();nextTarget=.08+Math.ceil((TRAVEL+.3-.08)/(60/currentBpm()))*(60/currentBpm());round=0;
+ choreo=makeChoreo();choreoIndex=0;nextTarget=.08+Math.ceil((TRAVEL+.3-.08)/(60/currentBpm()))*(60/currentBpm());round=0;
  $('target-lanes').querySelectorAll('.note').forEach(n=>n.remove());
  $('feedback').textContent='Ready? ♪';$('pause').textContent='Ⅱ';update();
 }
@@ -207,24 +207,15 @@ function spawn(item,target){
  for(const side of sides){
   const lane=side==='left'?0:1,pose=gestures.indexOf(item.pose);
   const el=document.createElement('div');el.className='note arm-note';el.dataset.pose=item.pose;el.dataset.side=side;
-  el.innerHTML='<img class="direction-icon" src="assets/approved/direction-'+item.pose+'.png" alt="'+(item.pose==='twist-punch'?'TWIST & PUNCH':item.pose.toUpperCase())+'"><small>'+side.toUpperCase()+' ARM · '+(item.pose==='twist-punch'?'TWIST & PUNCH':item.pose.toUpperCase())+'</small>';
+  el.innerHTML='<img class="direction-icon" src="assets/redesign/note-'+item.pose+'.svg" alt="'+item.pose+'">';
   document.querySelectorAll('#target-lanes .lane')[lane].append(el);
   notes.push({lane,pose,el,born:target-TRAVEL,target,hit:false,group});
  }
 }
-const nextPanel=document.createElement('div');
-nextPanel.className='fb-next';
-nextPanel.innerHTML='<div class="fb-next-title">NEXT</div><div class="fb-next-symbol">↑</div>';
-document.querySelector('#game .play-area')?.append(nextPanel);
-function updateNext(){
- const item=choreo[choreoIndex];if(!item)return;
- const symbols={up:'↑',down:'↓',side:'↔','twist-punch':'🥊'};
- nextPanel.querySelector('.fb-next-symbol').innerHTML='<img src="assets/approved/direction-'+item.pose+'.png" alt="'+item.pose+'">';
-}
 function schedule(){
  while(nextTarget-TRAVEL<=elapsed && nextTarget<duration()-.05){
   const item=choreo[choreoIndex];spawn(item,nextTarget);
-  choreoIndex=(choreoIndex+1)%choreo.length;updateNext();
+  choreoIndex=(choreoIndex+1)%choreo.length;
   if(choreoIndex===0)round++;
   const beat=60/currentBpm();
   const slow=phase==='cooldown'||phase==='warmup'||(mode.id==='interval'&&Math.floor(nextTarget/30)%2===0);
