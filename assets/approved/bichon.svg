@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="560" viewBox="0 0 480 560">
+<defs><filter id="glow"><feGaussianBlur stdDeviation="3"/></filter><linearGradient id="hood" x2="0" y2="1"><stop stop-color="#68d9ff"/><stop offset="1" stop-color="#1750bf"/></linearGradient></defs>
+<ellipse cx="240" cy="523" rx="130" ry="22" fill="#10235b" opacity=".3"/>
+<!-- raised waving fist --> <path d="M341 331 Q390 286 389 214" stroke="#1658c7" stroke-width="60" stroke-linecap="round" fill="none"/><circle cx="390" cy="202" r="42" fill="#fff" stroke="#dbe9f9" stroke-width="8"/>
+<!-- torso --> <path d="M158 300 Q240 275 323 304 Q353 356 333 456 Q238 485 144 456 Q125 352 158 300" fill="url(#hood)" stroke="#123c9a" stroke-width="11"/>
+<path d="M237 327 L237 445" stroke="white" stroke-width="9" stroke-linecap="round"/><path d="M252 327 L252 445" stroke="#c9faff" stroke-width="3" stroke-linecap="round"/>
+<path d="M169 453 L158 496 Q163 511 209 505 L218 459 M271 460 L280 505 Q329 510 332 493 L317 453" fill="#2152a6" stroke="#0b338a" stroke-width="7"/>
+<path d="M146 493 Q181 481 221 498 L221 518 Q166 532 141 509Z M263 499 Q303 482 337 494 L344 512 Q315 531 265 518Z" fill="#68d9ff" stroke="white" stroke-width="7"/>
+<!-- ears --> <ellipse cx="98" cy="235" rx="65" ry="100" fill="#fff" stroke="#e0eafa" stroke-width="8"/><ellipse cx="382" cy="235" rx="65" ry="100" fill="#fff" stroke="#e0eafa" stroke-width="8"/>
+<!-- fluffy silhouette --> <g fill="#fff" stroke="#e4edfb" stroke-width="7"><circle cx="142" cy="140" r="65"/><circle cx="210" cy="103" r="76"/><circle cx="287" cy="110" r="76"/><circle cx="349" cy="165" r="66"/><circle cx="363" cy="248" r="70"/><circle cx="306" cy="298" r="76"/><circle cx="224" cy="306" r="84"/><circle cx="139" cy="270" r="73"/><circle cx="107" cy="197" r="65"/></g>
+<!-- face --> <ellipse cx="237" cy="215" rx="128" ry="111" fill="#fff"/><ellipse cx="201" cy="213" rx="12" ry="16" fill="#252943"/><path d="M281 212 q17 -14 32 0" fill="none" stroke="#252943" stroke-width="9" stroke-linecap="round"/><ellipse cx="237" cy="251" rx="21" ry="14" fill="#303043"/><path d="M219 273 Q237 295 259 272" fill="none" stroke="#303043" stroke-width="8" stroke-linecap="round"/><ellipse cx="152" cy="253" rx="23" ry="13" fill="#ffb6cb" opacity=".8"/><ellipse cx="324" cy="252" rx="23" ry="13" fill="#ffb6cb" opacity=".8"/>
+<!-- blue headband --> <path d="M115 159 Q237 65 361 155" fill="none" stroke="#fff" stroke-width="31"/><path d="M115 159 Q237 65 361 155" fill="none" stroke="#277cdd" stroke-width="20"/><path d="M215 108 q20 -13 40 0" fill="none" stroke="white" stroke-width="7"/>
+<!-- headphones --> <path d="M105 212 Q102 93 234 78 Q375 83 376 212" fill="none" stroke="#2b7dde" stroke-width="16"/><rect x="76" y="197" width="33" height="77" rx="16" fill="#2461bd" stroke="#fff" stroke-width="6"/><rect x="372" y="197" width="33" height="77" rx="16" fill="#2461bd" stroke="#fff" stroke-width="6"/>
+</svg>

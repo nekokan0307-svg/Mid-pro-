@@ -1,0 +1,45 @@
+
+/* FITBEAT clean project: readable English interface, no overlapping gesture cards */
+:root{color-scheme:dark;--cyan:#62e9ff;--navy:#0a1537}
+html,body{overflow-x:hidden}
+#home .puppy-stage img,#game .game-puppy img,#results .puppy{content:url('assets/approved/bichon.svg')!important;filter:drop-shadow(0 5px 12px #30dfff99)!important}
+#home .menu button{font-size:clamp(16px,1.65vw,24px)!important;letter-spacing:.015em!important}
+#levels .level-grid{gap:14px!important}
+#levels .level{background:#11214b!important;border:2px solid #73eaff!important;color:white!important;min-width:0!important;padding:10px!important}
+#levels .level b,#levels .level span{display:block!important;color:#fff!important;text-shadow:0 2px 4px #050b24!important;line-height:1.35!important;opacity:1!important}
+#levels .level b{font-size:clamp(16px,1.5vw,23px)!important;margin:9px 0 3px!important}
+#levels .level span{font-size:clamp(13px,1.12vw,18px)!important;font-weight:800!important}
+#levels .level img{height:clamp(115px,12vw,180px)!important;object-fit:cover!important;border-radius:14px!important}
+.fb-phase-tabs button{color:#fff!important;text-shadow:0 2px 3px #17255c!important}
+.fb-phase-tabs button.selected{background:#1b5aa9!important;color:white!important}
+.fb-phase-help{color:#f0f7ff!important;font-weight:700!important;text-shadow:0 1px 2px #050b24!important}
+#game .play-area{isolation:isolate!important}
+#game .lanes{left:8%!important;width:68%!important;gap:18px!important;display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important}
+#game .lane{min-width:0!important;position:relative!important;overflow:hidden!important;border:2px solid #79e8ff99!important;border-radius:18px!important;background:#07143390!important}
+#game .lane[data-side="left"]{border-color:#ff9ee4!important}
+#game .lane-name{z-index:8!important;position:relative!important;color:white!important;background:#112453ed!important;border-radius:13px!important;padding:8px!important;text-align:center!important;font-size:clamp(12px,1.5vw,21px)!important;font-weight:1000!important;letter-spacing:.08em!important}
+#game .note{position:absolute!important;left:50%!important;transform:translateX(-50%)!important;box-sizing:border-box!important;width:clamp(88px,11vw,128px)!important;height:clamp(88px,11vw,128px)!important;max-width:90%!important;max-height:none!important;min-height:0!important;padding:3px!important;background:#08112b!important;border:2px solid #7de9ff!important;border-radius:18px!important;box-shadow:0 0 12px #28ceff66!important;display:flex!important;flex-direction:column!important;justify-content:center!important;align-items:center!important;z-index:4!important;font-size:inherit!important}
+#game .note[data-pose="up"]{border-color:#ffe34e!important}#game .note[data-pose="down"]{border-color:#ff79d8!important}#game .note[data-pose="side"]{border-color:#62e9ff!important}#game .note[data-pose="forward"]{border-color:#73f4a1!important}
+#game .note .direction-icon{width:65%!important;height:70%!important;object-fit:contain!important;display:block!important}
+#game .note small{font-size:clamp(9px,.8vw,12px)!important;line-height:1.1!important;color:white!important;font-weight:900!important;white-space:nowrap!important}
+#game .fb-next{right:1%!important;left:auto!important;top:12%!important;width:20%!important;max-width:170px!important;z-index:9!important}
+#game .fb-next-symbol img{width:80px!important;max-width:100%!important;height:80px!important;object-fit:contain!important}
+#game .feedback{left:45%!important;top:85%!important;z-index:10!important;font-size:clamp(17px,2.4vw,30px)!important;pointer-events:none!important}
+#game .game-puppy{z-index:2!important;pointer-events:none!important}
+#game .game-puppy img{max-height:170px!important}
+#results .calorie-result{background:#1c3475!important;border:1px solid #78dfff!important;border-radius:10px!important;padding:9px!important}
+#settings #weight-kg{width:110px!important;max-width:100%!important;padding:10px!important;border:2px solid #78dfff!important;border-radius:10px!important;background:#0f2048!important;color:white!important;font-size:18px!important}
+#sensor-setup .setup-guide{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:12px!important;margin:18px auto!important;max-width:1000px!important;text-align:left!important}
+#sensor-setup .setup-guide article{background:#132656ed!important;border:1px solid #64dfff!important;border-radius:15px!important;padding:16px!important;color:white!important}
+#sensor-setup .setup-guide article b{color:#9cefff!important;font-size:18px!important}
+#sensor-setup .setup-guide article p{font-size:15px!important;line-height:1.55!important}
+#sensor-setup .sensor-note,#sensor-setup p{color:#f5f7ff!important}
+.controller-page{min-height:100vh!important;background:radial-gradient(ellipse at top,#373181,#0b153b 70%)!important;color:white!important}
+.controller-page .phone{max-width:550px!important;margin:25px auto!important;padding:24px!important;background:#142653!important;border:2px solid #73e7ff!important;border-radius:26px!important;box-shadow:0 12px 40px #040920aa!important}
+.controller-page .phone h1{font-size:2.4rem!important;color:white!important}
+.controller-page .phone input{background:#f5faff!important;color:#122247!important;border:2px solid #65e4ff!important;border-radius:12px!important;font-size:18px!important;margin:10px 0!important}
+.controller-page .phone button{min-height:50px!important;font-size:16px!important;border-radius:15px!important}
+.controller-page .phone .readings{display:grid!important;gap:9px!important;background:#0d1c42!important;padding:15px!important;border-radius:15px!important;margin:15px 0!important}
+.controller-page .phone .readings>div{display:flex!important;justify-content:space-between!important;gap:10px!important;flex-wrap:wrap!important}
+.controller-page .phone .status{background:#071635!important;border-radius:12px!important;padding:13px!important;color:#9cf4ff!important;font-weight:800!important}
+@media(max-width:750px){#game .lanes{left:2%!important;width:74%!important;gap:6px!important}#game .note{width:clamp(66px,18vw,100px)!important;height:clamp(66px,18vw,100px)!important}#game .note small{font-size:8px!important}#game .fb-next{right:0!important;width:22%!important}#game .fb-next-symbol img{height:60px!important}#game .game-puppy{display:none!important}#sensor-setup .setup-guide{grid-template-columns:1fr!important}#levels .level-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
