@@ -16,7 +16,7 @@ let notes=[],elapsed=0,last=0,spawnAt=0,playing=false,paused=false,raf=0;
 let choreo=[],choreoIndex=0,nextTarget=0,round=0,readyTimer=null,ready=false;
 let ctx=null,master=null,musicTimer=null,nextBeat=0,step=0;
 const TRAVEL=3.3,HIT=0.67;
-const gestures=["up","side","forward","down"];let gestureStep=0;
+const gestures=["up","side","twist-punch","down"];let gestureStep=0;
 const beatDuration=()=>60/currentBpm();
 function currentBpm(){
  if(phase==='warmup')return 100;
@@ -122,11 +122,11 @@ if(levelGrid){
   phaseBar.querySelectorAll('button').forEach(b=>{b.classList.toggle('selected',b.dataset.phase===phase);b.setAttribute('aria-pressed',String(b.dataset.phase===phase))});
   if(phase==='workout'){
    detail.textContent='Choose workout intensity. BPM is music tempo, not a clinical intensity measure.';
-   levelGrid.innerHTML=intensity.map((m,i)=>'<button class="level" type="button" data-mode="'+m.id+'"><img src="assets/'+['neon-original/bg-light.png','neon-original/bg-moderate.png','neon-original/bg-vigorous.png','neon-original/bg-maximum.png','neon-original/bg-interval.png'][m.scene]+'" alt=""><b>'+m.name+'</b><span>'+(m.id==='interval'?'150 · slow/fast every 30s':m.bpm)+' BPM · '+m.duration+' sec</span></button>').join('');
+   levelGrid.innerHTML=intensity.map((m,i)=>'<button class="level" type="button" data-mode="'+m.id+'"><img src="assets/'+['neon-original/bg-light.png','neon-original/bg-moderate.png','neon-original/bg-vigorous.png','neon-original/bg-maximum.png','neon-original/bg-interval.png'][m.scene]+'" alt=""><b>'+m.name+'</b><span>'+(m.id==='interval'?'150 BPM · alternating every 30s':m.bpm)+' BPM · '+m.duration+' sec</span></button>').join('');
   }else{
    const warm=phase==='warmup';
    detail.textContent=warm?'Warm-up: 4 designed movement blocks.':'Cool-down: same movements as warm-up, at an easier cadence.';
-   levelGrid.innerHTML='<button class="level fb-single" type="button" data-mode="phase"><img src="assets/'+(warm?'neon-original/bg-light.png':'neon-original/bg-moderate.png')+'" alt=""><b>'+(warm?'🌤 Start Warm-up':'🌙 Start Cool-down')+'</b><span>'+(warm?'100':'90')+' BPM · 60 sec</span></button>';
+   levelGrid.innerHTML='<button class="level fb-single" type="button" data-mode="phase"><img src="assets/'+(warm?'neon-original/bg-warmup.png':'neon-original/bg-cooldown.png')+'" alt=""><b>'+(warm?'🌤 Start Warm-up':'🌙 Start Cool-down')+'</b><span>'+(warm?'100':'90')+' BPM · 60 sec</span></button>';
   }
  }
  phaseBar.addEventListener('click',e=>{const b=e.target.closest('[data-phase]');if(!b)return;phase=b.dataset.phase;render()});
@@ -143,8 +143,8 @@ function makeChoreo(){
  const upDown=(side,count)=>{for(let i=0;i<count;i++){a.push(event(side,'up',1));a.push(event(side,'down',1))}};
  const bothSide=(count)=>{for(let i=0;i<count;i++)a.push(event('both','side',2))};
  const blocks={
-  1:()=>{add('right','forward',8);add('left','forward',8)},
-  2:()=>alt('forward',8),
+  1:()=>{add('right','twist-punch',8);add('left','twist-punch',8)},
+  2:()=>alt('twist-punch',8),
   3:()=>{add('right','up',8);add('left','up',8)},
   4:()=>alt('up',8),
   5:()=>upDown('right',4),
@@ -154,7 +154,7 @@ function makeChoreo(){
  if(phase==='warmup'||phase==='cooldown'){
   alt('up',8,'left');alt('side',8,'left');
   for(let i=0;i<4;i++)a.push(event('left','up'),event('right','up'),event('left','down'),event('right','down'));
-  alt('forward',8,'left'); // repeated until the phase ends
+  alt('twist-punch',8,'left'); // repeated until the phase ends
  }else{
   const order=['vigorous','maximum','interval'].includes(mode.id)?[3,1,4,2,5,6,7]:[1,2,3,4,5,6,7];
   for(const n of order){if(mode.id==='light'&&n===7)continue;blocks[n]()}
@@ -207,7 +207,7 @@ function spawn(item,target){
  for(const side of sides){
   const lane=side==='left'?0:1,pose=gestures.indexOf(item.pose);
   const el=document.createElement('div');el.className='note arm-note';el.dataset.pose=item.pose;el.dataset.side=side;
-  el.innerHTML='<img class="direction-icon" src="assets/approved/direction-'+item.pose+'.png" alt="'+item.pose.toUpperCase()+'"><small>'+side.toUpperCase()+' ARM · '+item.pose.toUpperCase()+'</small>';
+  el.innerHTML='<img class="direction-icon" src="assets/approved/direction-'+item.pose+'.png" alt="'+(item.pose==='twist-punch'?'TWIST & PUNCH':item.pose.toUpperCase())+'"><small>'+side.toUpperCase()+' ARM · '+(item.pose==='twist-punch'?'TWIST & PUNCH':item.pose.toUpperCase())+'</small>';
   document.querySelectorAll('#target-lanes .lane')[lane].append(el);
   notes.push({lane,pose,el,born:target-TRAVEL,target,hit:false,group});
  }
@@ -218,9 +218,9 @@ nextPanel.innerHTML='<div class="fb-next-title">NEXT</div><div class="fb-next-sy
 document.querySelector('#game .play-area')?.append(nextPanel);
 function updateNext(){
  const item=choreo[choreoIndex];if(!item)return;
- const symbols={up:'↑',down:'↓',side:'↔',forward:'➜'};
+ const symbols={up:'↑',down:'↓',side:'↔','twist-punch':'🥊'};
  nextPanel.querySelector('.fb-next-symbol').innerHTML='<img src="assets/approved/direction-'+item.pose+'.png" alt="'+item.pose+'">';
- nextPanel.querySelector('.fb-next-name').textContent=item.pose.toUpperCase();
+ nextPanel.querySelector('.fb-next-name').textContent=(item.pose==='twist-punch'?'TWIST & PUNCH':item.pose.toUpperCase());
  nextPanel.querySelector('.fb-next-side').textContent=item.side==='both'?'BOTH ARMS':item.side.toUpperCase()+' ARM';
 }
 function schedule(){
@@ -274,6 +274,7 @@ function finish(){
  playing=false;cancelAnimationFrame(raf);stopMusic();
  $('final-score').textContent=score.toLocaleString();$('perfect').textContent=perfect;
  $('good').textContent=good;$('miss').textContent=miss;$('max-combo').textContent=maxCombo;
+ const total=perfect+good+miss; const accuracy=total?Math.round((perfect+good)/total*100):0; $('accuracy').textContent=accuracy+'%';
  const weight=Math.min(300,Math.max(20,Number($('weight-kg')?.value)||60));
  const met=phase==='warmup'?2.8:phase==='cooldown'?2.3:({light:3.5,moderate:5,vigorous:7,maximum:9,interval:6.5}[mode.id]||4);
  const kcal=met*3.5*weight/200*(elapsed/60);
@@ -286,6 +287,7 @@ document.addEventListener('keydown',e=>{
  const map={Digit1:[0,0],Digit2:[0,1],Digit3:[0,2],Digit4:[0,3],KeyQ:[1,0],KeyW:[1,1],KeyE:[1,2],KeyR:[1,3]};
  if(map[e.code]){e.preventDefault();move(...map[e.code])}
 });
+$('exit-workout')?.addEventListener('click',()=>{if(confirm('Exit this workout? Your current score will not be saved.'))show('levels')});
 $('pause').addEventListener('click',()=>{
  paused=!paused;$('pause').textContent=paused?'▶':'Ⅱ';last=0;
  if(ctx)nextBeat=ctx.currentTime+.07;

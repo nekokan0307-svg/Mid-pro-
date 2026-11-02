@@ -1,0 +1,7 @@
+/* Approved four-pose motion cards — image set supplied in this conversation. */
+#game .note.arm-note {background:#091735!important;background-image:none!important;min-width:112px!important;width:clamp(112px,11vw,154px)!important;min-height:132px!important;height:clamp(132px,17vw,184px)!important;display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;overflow:hidden!important;border:2px solid #8beaff!important;border-radius:18px!important;box-sizing:border-box!important;padding:3px!important;}
+#game .note.arm-note img.direction-icon {display:block!important;position:static!important;width:100%!important;height:calc(100% - 25px)!important;object-fit:contain!important;opacity:1!important;filter:none!important;}
+#game .note.arm-note small {position:static!important;display:block!important;background:#091735!important;color:#fff!important;font-size:11px!important;line-height:1.25!important;font-weight:900!important;text-align:center!important;white-space:nowrap!important;text-shadow:none!important;}
+#game .note.arm-note[data-pose="twist-punch"] {border-color:#ff8fc7!important;}
+#game .fb-next-symbol img {max-height:90px!important;max-width:95px!important;object-fit:contain!important;}
+@media(max-width:700px){#game .note.arm-note{min-width:76px!important;width:90px!important;min-height:100px!important;height:110px!important}#game .note.arm-note small{font-size:8px!important}}

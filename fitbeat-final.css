@@ -2,7 +2,7 @@
 /* FITBEAT clean project: readable English interface, no overlapping gesture cards */
 :root{color-scheme:dark;--cyan:#62e9ff;--navy:#0a1537}
 html,body{overflow-x:hidden}
-#home .puppy-stage img,#game .game-puppy img,#results .puppy{content:url('assets/approved/bichon.svg')!important;filter:drop-shadow(0 5px 12px #30dfff99)!important}
+#home .puppy-stage img,#game .game-puppy img,#results .puppy{content:url('assets/approved/mascot-recovered.png')!important;filter:drop-shadow(0 5px 12px #30dfff99)!important}
 #home .menu button{font-size:clamp(16px,1.65vw,24px)!important;letter-spacing:.015em!important}
 #levels .level-grid{gap:14px!important}
 #levels .level{background:#11214b!important;border:2px solid #73eaff!important;color:white!important;min-width:0!important;padding:10px!important}

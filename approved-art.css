@@ -11,8 +11,8 @@
 #home .menu button:nth-child(3){background:linear-gradient(#79ecff,#259bdc 65%,#1a4ca7)!important}
 #home .menu button:nth-child(4){background:linear-gradient(#8f9dff,#6546d8 65%,#302887)!important}
 #home .menu button:nth-child(5){background:linear-gradient(#90a6ff,#426ac7 65%,#263b8d)!important}
-#home .puppy-stage img{content:url('assets/approved/bichon.svg')!important;object-fit:contain!important;filter:drop-shadow(0 0 14px #59ccff)!important}
-#game .game-puppy img,#results .puppy{content:url('assets/approved/bichon.svg')!important;object-fit:contain!important}
+#home .puppy-stage img{content:url('assets/approved/mascot-recovered.png')!important;object-fit:contain!important;filter:drop-shadow(0 0 14px #59ccff)!important}
+#game .game-puppy img,#results .puppy{content:url('assets/approved/mascot-recovered.png')!important;object-fit:contain!important}
 #game .note{font-size:0!important;position:relative!important}
 #game .note[data-dir='up'],#game .note[data-direction='up']{background-image:url('assets/approved/direction-up.png')!important}
 #game .note[data-dir='down'],#game .note[data-direction='down']{background-image:url('assets/approved/direction-down.png')!important}

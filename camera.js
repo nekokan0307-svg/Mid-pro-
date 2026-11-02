@@ -48,9 +48,11 @@ function detect(lm,side,now,world){
   const torsoDepth=Math.abs(H.z-S.z);
   const projectedNearShoulder=Math.abs(dy)<.85&&dx<1.25;
   const extended=elbowAngle>128||elbowStraight;
-  if(extended&&projectedNearShoulder&&elevation>-48&&elevation<55&&
-     ((depth>.32&&depth>lateral*.62)||(reachZ>Math.max(.10,torsoDepth*.9)&&depth>.23)))
-    return ['forward',visibility*.9];
+  const shoulderTurn=Math.abs(world[11].z-world[12].z)/Math.max(.12,shoulderWidth);
+  const twisting=shoulderTurn>.22;
+  if(extended&&twisting&&projectedNearShoulder&&elevation>-48&&elevation<55&&
+     ((depth>.30&&depth>lateral*.60)||(reachZ>Math.max(.10,torsoDepth*.9)&&depth>.22)))
+    return ['twist-punch',visibility*.9];
   if(elevation>40&&len>.18)return ['up',visibility];
   if(elbowStraight&&elevation>-30&&elevation<32&&lateral>.58&&lateral>depth*.9)return ['side',visibility];
   if(elevation< -25 || dy>.48)return ['down',visibility];
@@ -58,8 +60,7 @@ function detect(lm,side,now,world){
  // 2D fallback: a straight arm aimed at the camera looks short in the image.
  // Restrict to shoulder height to avoid confusing ordinary down/side poses.
  const forearm=dist(elbow,wrist),upper=dist(shoulder,elbow);
- if(elbowAngle>135&&Math.abs(dy)<.58&&dx<.66&&
-    forearm<Math.max(.12,upper*1.35)&&arm<torso*1.4)return ['forward',visibility*.7];
+ // Twist & Punch requires world landmarks; do not guess from a 2D side raise.
  if(dy<-.6&&arm>torso*.65)return ['up',visibility];
  if(straight&&dx>.65&&Math.abs(dy)<.5)return ['side',visibility];
  if(dy>.43&&dx<.95)return ['down',visibility];
@@ -68,17 +69,17 @@ function detect(lm,side,now,world){
 
 async function frame(){if(!running)return;requestAnimationFrame(frame);if(!tracker||video.readyState<2||video.currentTime===lastVideo||performance.now()-lastFrame<33)return;
  lastVideo=video.currentTime;lastFrame=performance.now();try{
- const r=tracker.detectForVideo(video,lastFrame),lm=r.landmarks?.[0],world=r.worldLandmarks?.[0];if(!lm){status.textContent='No person detected';return}
+ const r=tracker.detectForVideo(video,lastFrame),lm=r.landmarks?.[0],world=r.worldLandmarks?.[0];if(!lm){status.textContent='Tracking lost — step back so both arms and shoulders are visible';return}
  const labels=[];
  for(const side of ['left','right']){
   const [key]=detect(lm,side,lastFrame,world),s=stables[side];
   if(s.key===key)s.n=Math.min(s.n+1,5);else{s.key=key;s.n=1}
   // Require a return/retraction before another forward punch is counted.
-  if(key!=='forward')s.forwardArmed=true;
+  if(key!=='twist-punch')s.forwardArmed=true;
   if(key==='none'){s.lastHit='none';labels.push(side[0].toUpperCase()+':—');continue}
   if(s.n>=2){
-   if(key==='forward'){
-    if(s.forwardArmed){window.fitbeatHit?.(side,'forward');s.forwardArmed=false;s.lastHit=key;s.lastAt=lastFrame}
+   if(key==='twist-punch'){
+    if(s.forwardArmed){window.fitbeatHit?.(side,'twist-punch');s.forwardArmed=false;s.lastHit=key;s.lastAt=lastFrame}
    }else if(key!==s.lastHit||lastFrame-s.lastAt>650){
     window.fitbeatHit?.(side,key);s.lastHit=key;s.lastAt=lastFrame;
    }
@@ -89,7 +90,7 @@ async function frame(){if(!running)return;requestAnimationFrame(frame);if(!track
  }catch(e){status.textContent='Tracking: '+e.message}}
 btn.addEventListener('click',async()=>{
  if(running){running=false;stream?.getTracks().forEach(t=>t.stop());tracker?.close();tracker=null;video.srcObject=null;video.hidden=true;btn.textContent='📷 Start Camera';status.textContent='Camera off';return}
- btn.disabled=true;status.textContent='Loading pose tracker…';try{
+ btn.disabled=true;status.textContent='Loading pose tracker… This may take a moment on the first visit';try{
  const {FilesetResolver,PoseLandmarker}=await import('./vision_bundle.mjs');
  const vision=await FilesetResolver.forVisionTasks('https://nekokan0307-svg.github.io/damo002/wasm');
  const opts={baseOptions:{modelAssetPath:new URL('./pose_landmarker_lite.task',import.meta.url).href,delegate:'GPU'},runningMode:'VIDEO',numPoses:1};

@@ -1,0 +1,42 @@
+
+/* Integrated UI corrections — override old conflicting styles in one final stylesheet */
+:root{--ink:#f5f9ff} body{color:#f5f9ff} .screen{color:#f5f9ff!important}
+#home .puppy-stage img,#game .game-puppy img,#results .puppy{content:url('assets/approved/mascot-recovered.png')!important;object-fit:contain!important}
+#home .puppy-stage img{max-height:330px!important;max-width:300px!important}
+#levels .level-grid{max-width:1200px!important;grid-template-columns:repeat(5,minmax(0,1fr))!important;gap:13px!important}
+#levels .level{background:#102147!important;color:#fff!important;border:2px solid #6de8ff!important;padding:12px!important;box-shadow:0 0 12px #39dfff55!important;min-width:0!important}
+#levels .level b,#levels .level span{color:#fff!important;opacity:1!important;text-shadow:none!important;font-weight:800!important;line-height:1.3!important}
+#levels .level b{font-size:clamp(17px,1.5vw,22px)!important}#levels .level span{font-size:clamp(13px,1.15vw,16px)!important}
+#levels .level img{height:155px!important;width:100%!important;object-fit:cover!important}
+#levels .fb-phase-help,#levels p,#sensor-setup p,#sensor-setup .sensor-note,#intensity-guide p{color:#fff!important;opacity:1!important;text-shadow:none!important}
+.fb-phase-tabs button{color:#102347!important;background:#fff!important;text-shadow:none!important;border:2px solid #61eaff!important}
+.fb-phase-tabs button.selected{color:#fff!important;background:#1a4f9b!important}
+#sensor-setup{background:#0d173b!important}#sensor-setup h2{color:#fff!important;text-shadow:0 0 12px #56cfff!important}
+#sensor-setup .setup-guide article{background:#142a55!important;color:#fff!important;border:2px solid #60eaff!important}
+#sensor-setup .setup-guide article p{color:#fff!important}#sensor-setup .setup-guide article b{color:#95f0ff!important}
+#sensor-setup button{color:#fff!important;background:#244a91!important;border-color:#9cf0ff!important}
+#game .lanes{left:10%!important;width:66%!important;gap:18px!important;grid-template-columns:repeat(2,minmax(0,1fr))!important}
+#game .lane{overflow:hidden!important;background:#061431ad!important;border:2px solid #8edfff!important;border-radius:16px!important}
+#game .lane-name{color:#fff!important;background:#0c204d!important;font-size:clamp(15px,1.5vw,20px)!important;position:relative!important;z-index:8!important}
+#game .note.arm-note{min-width:0!important;width:clamp(78px,8.2vw,114px)!important;height:clamp(92px,10vw,120px)!important;min-height:0!important;padding:2px!important;background:#0a1b3c!important}
+#game .note.arm-note img.direction-icon{height:calc(100% - 24px)!important;width:100%!important;object-fit:contain!important}
+#game .note.arm-note small{font-size:clamp(9px,.78vw,12px)!important;white-space:normal!important;line-height:1.1!important}
+#game .fb-next{right:1%!important;top:12%!important;z-index:9!important;width:19%!important}
+#game .feedback{top:90%!important;left:50%!important;z-index:9!important;color:#fff!important;text-shadow:0 2px 8px #071332!important}
+#game .game-puppy{width:15%!important;left:0!important;bottom:0!important;z-index:1!important}
+#game .game-puppy img{max-height:140px!important}
+#game #exit-workout{background:#182d61!important;color:#fff!important;border:2px solid #6ceaff!important}
+#results{background:linear-gradient(155deg,#111a49,#0b1130)!important;overflow-y:auto!important;padding:24px!important}
+#results .result-bg{background-image:linear-gradient(#08142cc9,#08142ce3),url('assets/approved/home-gym.png')!important;background-size:cover!important;opacity:.8!important;filter:none!important}
+#results .result-card{position:relative!important;z-index:5!important;max-width:680px!important;max-height:none!important;overflow:visible!important;margin:10px auto!important;background:#0e1e48f2!important;border:2px solid #74e6ff!important;border-radius:24px!important;padding:20px 26px!important;display:flex!important;flex-direction:column!important;align-items:stretch!important;gap:8px!important}
+#results .result-card h2{font-size:clamp(27px,3vw,40px)!important;margin:0 0 6px!important;color:#fff!important;text-shadow:0 0 10px #6ae6ff!important}
+#results .result-card .puppy{width:125px!important;height:155px!important;max-height:155px!important;align-self:center!important;flex:0 0 auto!important;object-fit:contain!important;animation:none!important}
+#results .result-stats{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:7px!important;background:#0b183b!important;border:1px solid #6ae4ff!important;border-radius:14px!important;padding:12px!important;margin:4px 0!important}
+#results .result-stats>div{display:flex!important;flex-direction:column!important;align-items:center!important;gap:3px!important;border:1px solid #385d96!important;border-radius:10px!important;padding:8px!important;background:#142c5d!important;color:#fff!important;font-size:14px!important}
+#results .result-stats b{color:#fff!important;font-size:clamp(19px,2vw,25px)!important}
+#results .result-stats .calorie-result{background:#20477a!important}
+#results .result-card button{min-height:44px!important;margin:2px 0!important;color:#fff!important}
+#results .result-disclaimer{color:#d5eaff!important;font-size:12px!important;margin:3px 0 0!important}
+#intensity-guide .fb-guide-grid article{background:#132755!important;color:#fff!important}
+#intensity-guide .fb-guide-note{background:#10254d!important;color:#fff!important}
+@media(max-width:760px){#levels .level-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}#levels .level img{height:125px!important}#game .lanes{left:1%!important;width:73%!important;gap:6px!important}#game .note.arm-note{width:clamp(64px,16vw,90px)!important;height:clamp(76px,20vw,100px)!important}#game .fb-next{right:0!important;width:25%!important}#game .game-puppy{display:none!important}#results .result-card{padding:14px!important}#results .result-stats{gap:4px!important}#results .result-stats>div{padding:6px!important}}
