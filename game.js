@@ -207,7 +207,7 @@ function spawn(item,target){
  for(const side of sides){
   const lane=side==='left'?0:1,pose=gestures.indexOf(item.pose);
   const el=document.createElement('div');el.className='note arm-note';el.dataset.pose=item.pose;el.dataset.side=side;
-  el.innerHTML='<img class="direction-icon" src="assets/redesign/note-'+item.pose+'.svg" alt="'+item.pose+'">';
+  el.innerHTML='<img class="direction-icon" src="'+window.fitbeatAsset('assets/redesign/note-'+item.pose+'.svg')+'" alt="'+item.pose+'">';
   document.querySelectorAll('#target-lanes .lane')[lane].append(el);
   notes.push({lane,pose,el,born:target-TRAVEL,target,hit:false,group});
  }
